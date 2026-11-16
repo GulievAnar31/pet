@@ -1,0 +1,27 @@
+{
+    "name": "anarguliev/php-practice",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "Anarguliev\\PhpPractice\\": "src/",
+            "entities\\": "src/entities"
+        }
+    },
+    "authors": [
+        {
+            "name": "anar.guliyev",
+            "email": "anar.guliyev@aviata.business"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95"
+    },
+    "scripts": {
+        "user:add": "@php src/index.php user:add",
+        "user:delete": "@php src/index.php user:delete",
+        "users:show": "@php src/index.php users:show",
+        "cs:fix": "php-cs-fixer fix",
+        "cs:check": "php-cs-fixer fix --dry-run --diff"
+    }
+}
