@@ -1,15 +1,13 @@
 <?php
 
-namespace entities;
+namespace App\shared;
 
 class File
 {
-    public string $path;
-    public array $content;
+    private array $content;
 
-    public function __construct(string $path)
+    public function __construct(private readonly string $path)
     {
-        $this->path = $path;
     }
 
     /**

@@ -3,8 +3,7 @@
     "version": "1.0.0",
     "autoload": {
         "psr-4": {
-            "Anarguliev\\PhpPractice\\": "src/",
-            "entities\\": "src/entities"
+            "App\\": "src/"
         }
     },
     "authors": [
