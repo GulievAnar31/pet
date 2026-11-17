@@ -1,22 +1,25 @@
 <?php
 
-use App\shared\Commands;
-use App\shared\File;
+declare(strict_types=1);
 
-require __DIR__ . "/../vendor/autoload.php";
+require __DIR__ . '/../vendor/autoload.php';
 
-$file = new File(dirname(__DIR__) . '/users.json');
+use App\Repositories\JsonUserRepository;
+use App\Shared\Commands;
+use App\Shared\File;
+
+$repository = new JsonUserRepository(new File(dirname(__DIR__) . '/users.json'));
+$commands = new Commands($repository);
+
+$cmd = $argv[1] ?? '';
+$args = array_slice($argv, 2);
 
 try {
-    $file->readFile();
-
-    $commands = new Commands($file);
-
-    $args = array_splice($argv, 1);
-    $cmd = $args[0];
-
-    $commands->execute($cmd, array_slice($args, 1));
-} catch (JsonException $e) {
-    echo "Не удалось прочитать users.json: {$e->getMessage()}\n";
+    $commands->execute($cmd, $args);
+} catch (\InvalidArgumentException|\RuntimeException $e) {
+    fwrite(STDERR, "Ошибка: {$e->getMessage()}\n");
+    exit(1);
+} catch (\JsonException $e) {
+    fwrite(STDERR, "Не удалось разобрать users.json: {$e->getMessage()}\n");
     exit(1);
 }

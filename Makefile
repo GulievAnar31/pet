@@ -17,7 +17,7 @@ user-add: ## Добавить: make user-add name=Anar surname=Guliyev email=ana
 	$(PHP) $(APP) user:add "name=$(name)" "surname=$(surname)" "email=$(email)"
 
 user-delete: ## Удалить: make user-delete id=58
-	$(PHP) $(APP) user:delete "$(id)"
+	$(PHP) $(APP) user:delete "id=$(id)"
 
 cs-fix: ## Отформатировать код
 	vendor/bin/php-cs-fixer fix

@@ -1,5 +1,5 @@
 {
-    "lastId": 63,
+    "lastId": 66,
     "users": [
         {
             "id": 1,
@@ -360,28 +360,22 @@
             "email": "asdf.adsf56@example.com"
         },
         {
-            "id": 60,
-            "name": "Anar",
-            "surname": "Yakubov",
-            "email": "guliev@internet.ru"
-        },
-        {
             "id": 61,
             "name": "Anar",
-            "surname": "Yakubov",
+            "surname": "Guliev",
             "email": "guliev@internet.ru"
         },
         {
             "id": 62,
             "name": "Anar",
-            "surname": "Yakubov",
+            "surname": "Guliev",
             "email": "guliev@internet.ru"
         },
         {
-            "id": 63,
+            "id": 65,
             "name": "Anar",
-            "surname": "Guliyev",
-            "email": "pokipoki@mail.ru"
+            "surname": "Guliev",
+            "email": "guliev@internet.ru"
         }
     ]
 }
