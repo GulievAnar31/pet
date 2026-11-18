@@ -2,3 +2,5 @@
 .php-cs-fixer.cache
 /.idea/
 users.backup.json
+users.json
+users-1.json
