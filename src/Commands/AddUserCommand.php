@@ -13,11 +13,11 @@ readonly class AddUserCommand
     public function execute(string $name = "", string $surname = "", string $email = ""): void
     {
         $user = $this->userRepository->add(
-            $name ?? "",
-            $surname ?? "",
-            $email ?? ""
+            $name,
+            $surname,
+            $email
         );
 
-        echo "Добавлен пользователь #{$user->getId()}\n";
+        echo sprintf("Добавлен пользователь #%d\n", $user->getId());
     }
 }

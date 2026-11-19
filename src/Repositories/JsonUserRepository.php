@@ -7,7 +7,7 @@ namespace App\Repositories;
 use App\Entities\User;
 use App\Shared\File;
 
-readonly class JsonUserRepository extends \App\Commands\AddUserCommand implements UserRepositoryInterface
+readonly class JsonUserRepository implements UserRepositoryInterface
 {
     public function __construct(private File $file)
     {
