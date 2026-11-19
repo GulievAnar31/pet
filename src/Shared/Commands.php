@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace App\Shared;
 
+use App\Commands\AddUserCommand;
+use App\Commands\DeleteUserCommand;
+use App\Commands\ShowUserCommand;
 use App\Repositories\UserRepositoryInterface;
 
 readonly class Commands
 {
-    public function __construct(private UserRepositoryInterface $users)
-    {
+    public function __construct(
+        private AddUserCommand $addUserCommand,
+        private DeleteUserCommand $deleteUserCommand,
+        private ShowUserCommand $showUserCommand,
+    ) {
     }
 
     /**
@@ -21,62 +27,13 @@ readonly class Commands
         $params = $this->parseParams($args);
 
         match ($cmd) {
-            'users:show' => $this->showUsers(),
-            'user:add' => $this->addUser($params),
-            'user:delete' => $this->deleteUser($params),
+            'users:show' => $this->showUserCommand->execute(),
+            'user:add' => $this->addUserCommand->execute($params['name'], $params['surname'], $params['email']),
+            'user:delete' => $this->deleteUserCommand->execute((int) $params['id']),
             default => throw new \InvalidArgumentException(
                 "Неизвестная команда «{$cmd}». Доступны: users:show, user:add, user:delete"
             ),
         };
-    }
-
-    /**
-     * @throws \JsonException
-     */
-    private function showUsers(): void
-    {
-        $users = $this->users->all();
-
-        if ($users === []) {
-            echo "Пользователей нет\n";
-            return;
-        }
-
-        foreach ($users as $user) {
-            echo "#{$user->getId()} {$user->getName()} {$user->getSurname()} <{$user->getEmail()}>\n";
-        }
-    }
-
-    /**
-     * @param array<string, string> $params
-     * @throws \JsonException
-     */
-    private function addUser(array $params): void
-    {
-        $user = $this->users->add(
-            $params['name'] ?? '',
-            $params['surname'] ?? '',
-            $params['email'] ?? ''
-        );
-
-        echo "Добавлен пользователь #{$user->getId()}\n";
-    }
-
-    /**
-     * @param array<string, string> $params
-     * @throws \JsonException
-     */
-    private function deleteUser(array $params): void
-    {
-        $id = $params['id'] ?? '';
-
-        if (!ctype_digit($id)) {
-            throw new \InvalidArgumentException('Укажите числовой id, например: make user-delete id=5');
-        }
-
-        $this->users->delete((int) $id);
-
-        echo "Удалён пользователь #{$id}\n";
     }
 
     /**
